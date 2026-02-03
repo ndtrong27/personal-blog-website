@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { Trash2, Heart, MessageCircle } from 'lucide-react';
 import { useState } from 'react';
 
-const PostCard = ({ post, onDelete, onLike }) => {
+const PostCard = ({ post, onDelete, onLike, onReadMore }) => {
     const [isHovered, setIsHovered] = useState(false);
 
     // Format date nicely
@@ -34,12 +34,14 @@ const PostCard = ({ post, onDelete, onLike }) => {
                 }}>
                     {post.category}
                 </span>
-                <h2 style={{
-                    fontSize: '2.5rem',
-                    marginTop: '0.5rem',
-                    marginBottom: '0.5rem',
-                    cursor: 'pointer'
-                }}>
+                <h2
+                    onClick={() => onReadMore(post)}
+                    style={{
+                        fontSize: '2.5rem',
+                        marginTop: '0.5rem',
+                        marginBottom: '0.5rem',
+                        cursor: 'pointer'
+                    }}>
                     {post.title}
                 </h2>
                 <div className="meta" style={{
@@ -63,9 +65,10 @@ const PostCard = ({ post, onDelete, onLike }) => {
                     borderRadius: '2px'
                 }}>
                     <motion.img
+                        onClick={() => onReadMore(post)}
                         src={post.image_url}
                         alt={post.title}
-                        style={{ width: '100%', height: 'auto', display: 'block' }}
+                        style={{ width: '100%', height: 'auto', display: 'block', cursor: 'pointer' }}
                         animate={{ scale: isHovered ? 1.02 : 1 }}
                         transition={{ duration: 0.5 }}
                     />
@@ -79,6 +82,7 @@ const PostCard = ({ post, onDelete, onLike }) => {
             <div className="actions" style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
                 <button
                     className="cursor-hover"
+                    onClick={() => onReadMore(post)}
                     style={{
                         background: 'none',
                         border: 'none',

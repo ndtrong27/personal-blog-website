@@ -4,7 +4,7 @@ import SearchBar from './SearchBar';
 import CategoryFilter from './CategoryFilter';
 import { useState, useMemo } from 'react';
 
-const PostFeed = () => {
+const PostFeed = ({ onReadMore }) => {
     const { posts, loading, error, deletePost, toggleLike } = usePosts();
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('All');
@@ -62,6 +62,7 @@ const PostFeed = () => {
                             post={post}
                             onDelete={deletePost}
                             onLike={() => toggleLike(post.id, CURRENT_USER_ID)}
+                            onReadMore={onReadMore}
                         />
                     ))}
                 </div>

@@ -3,10 +3,12 @@ import Navigation from './components/Navigation';
 import PostFeed from './components/PostFeed';
 import PostEditor from './components/PostEditor';
 import Cursor from './components/Cursor';
+import PostReader from './components/PostReader';
 import { AnimatePresence } from 'framer-motion';
 
 function App() {
   const [isEditorOpen, setIsEditorOpen] = useState(false);
+  const [selectedPost, setSelectedPost] = useState(null);
 
   return (
     <>
@@ -16,7 +18,7 @@ function App() {
         <Navigation onNewPost={() => setIsEditorOpen(true)} />
 
         <main>
-          <PostFeed />
+          <PostFeed onReadMore={setSelectedPost} />
         </main>
 
         <footer style={{ marginTop: '5rem', padding: '3rem 0', borderTop: '1px solid #eee', textAlign: 'center', opacity: 0.5 }}>
@@ -27,6 +29,9 @@ function App() {
       <AnimatePresence>
         {isEditorOpen && (
           <PostEditor onClose={() => setIsEditorOpen(false)} />
+        )}
+        {selectedPost && (
+          <PostReader post={selectedPost} onClose={() => setSelectedPost(null)} />
         )}
       </AnimatePresence>
     </>
